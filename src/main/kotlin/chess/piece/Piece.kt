@@ -10,8 +10,16 @@ class Piece(
     private val validators: List<MovementValidator>
 ) {
 
+    companion object ClassicFactory {
+
+    }
+
     fun move(board: Board, movement: Movement): List<Piece> {
        TODO()
+    }
+
+    override fun toString(): String {
+       return "$name/$color"
     }
 
 }
