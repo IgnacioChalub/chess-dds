@@ -7,11 +7,6 @@ import java.util.Arrays
 
 class SquaredBoard(private val board: Array<Array<Tile>>) : Board {
 
-    companion object Factory {
-
-
-
-    }
     override fun getTile(position: Position): Tile {
         TODO("Not yet implemented")
     }

@@ -23,9 +23,8 @@ class Game (
 
     }
 
-   private fun checkWinner(): String {
+    private fun checkWinner(): String {
       TODO()
-   }
-
+    }
 
 }

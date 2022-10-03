@@ -1,4 +1,4 @@
-package chess.Factory
+package chess.factory
 
 import chess.board.Board
 
