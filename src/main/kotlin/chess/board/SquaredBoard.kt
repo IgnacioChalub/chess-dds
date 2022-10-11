@@ -1,20 +1,21 @@
 package chess.board
 
-import chess.movementValidator.MovementValidator
-import chess.piece.Piece
-import java.lang.Error
-import java.util.Arrays
-
 class SquaredBoard(private val board: Array<Array<Tile>>) : Board {
 
-    override fun getTile(position: Position): Tile {
-        TODO("Not yet implemented")
+    override fun getTile(position: Position): Tile = board[position.getX()][position.getY()]
+
+    private fun setTile(position: Position, tile: Tile) {
+        board[position.getX()][position.getY()] = tile
     }
 
-    fun putAt(position: Position, piece: Piece) {
-        val tile = board[position.getX()][position.getY()]
-        if(tile.hasPiece()) throw Error()
-        board[position.getX()][position.getY()] = OccupiedSquare(tile.getColor(), piece)
+    override fun putAt(position: Position, tile: Tile): Tile {
+        val oldTile = board[position.getX()][position.getY()]
+        board[position.getX()][position.getY()] = tile
+        return oldTile
+    }
+
+    override fun betweenLimits(position: Position): Boolean {
+        return position.getX() >= 0 && position.getY() >= 0 && position.getX() <= board.size && position.getY() <= board[0].size
     }
 
     override fun toString(): String {
