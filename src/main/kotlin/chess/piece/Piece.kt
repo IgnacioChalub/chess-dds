@@ -5,25 +5,21 @@ import chess.board.EmptySquare
 import chess.board.Movement
 import chess.board.OccupiedSquare
 import chess.movementValidator.MovementValidator
+import chess.mover.Mover
 
 class Piece(
     private val name: String,
     private val color: String,
-    private val validators: List<MovementValidator>
+    private val movers: List<Mover>
 ) {
 
     fun move(board: Board, movement: Movement): List<Piece> {
-        for(validator in validators) {
-            if(!validator.validate(board, movement)) {
-              throw Error("invalid move")
-            }
+        for(mover in movers) {
+          if(mover.validMovement(board, movement)) {
+            return mover.move(board, movement) 
+          }
         }
-        val oldFromTile = board.getTile(movement.getFrom())
-        val oldToTile = board.getTile(movement.getTo()) 
-        board.putAt(movement.getTo(), OccupiedSquare(oldToTile.getColor(), this))
-        board.putAt(movement.getFrom(), EmptySquare(oldFromTile.getColor()))
-        if(oldToTile.hasPiece()) return listOf(oldToTile.getPiece())
-        return listOf()
+        throw Error("Invalid move")
     }
 
     fun getColor(): String = color

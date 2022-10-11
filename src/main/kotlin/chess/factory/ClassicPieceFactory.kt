@@ -6,12 +6,40 @@ import chess.movementValidator.DiagonalMovementValidator
 import chess.movementValidator.HorizontalMovementValidator
 import chess.movementValidator.VerticalMovementValidator
 import chess.movementValidator.DistanceMovementValidator
+import chess.movementValidator.HasMovedValidator
+import chess.movementValidator.EatsValidator
+import chess.mover.ClassicMover
 import NotSameTileValidator
 
 class ClassicPieceFactory {
     fun pawn(color: String): Piece {
         return Piece("PAWN", color, listOf(
-            NotSameTileValidator()
+            ClassicMover(
+                listOf(
+                    NotSameTileValidator(),
+                    InBoundsValidator(),
+                    VerticalMovementValidator(),
+                    DistanceMovementValidator(1)
+                )
+            ),
+            ClassicMover(
+                listOf(
+                    NotSameTileValidator(),
+                    InBoundsValidator(),
+                    VerticalMovementValidator(),
+                    DistanceMovementValidator(2),
+                    HasMovedValidator() 
+                )
+            ),
+            ClassicMover(
+                listOf(
+                    NotSameTileValidator(),
+                    InBoundsValidator(),
+                    VerticalMovementValidator(),
+                    DistanceMovementValidator(1),
+                    EatsValidator()
+                )
+            ),
         ))
     }
     fun bishop(color: String): Piece {
